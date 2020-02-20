@@ -22,8 +22,8 @@ public class MachacasauriosApplication implements CommandLineRunner {
 //                                                                "b_read_on.txt"
 //                                                                "c_incunabula.txt"
 //                                                                "d_tough_choices.txt"
-//                                                                "e_so_many_books.txt"
-                                                                "f_libraries_of_the_world.txt"
+                                                                "e_so_many_books.txt"
+//                                                                "f_libraries_of_the_world.txt"
                                                         );
 
     private static long numberOfBooks;
