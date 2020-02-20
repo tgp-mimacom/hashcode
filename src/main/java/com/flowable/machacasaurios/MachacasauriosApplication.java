@@ -44,7 +44,12 @@ public class MachacasauriosApplication implements CommandLineRunner {
             readFromInputStream(inputStream1);
 
 
-//            solutionToFile(slides, inputFile);
+
+            LibrarySolution librarySolution = new LibrarySolution(1, Arrays.asList(1L,2L,5L));
+            LibrarySolution librarySolution2 = new LibrarySolution(33, Arrays.asList(7L,8L,12L));
+            List<LibrarySolution> librariesSolution = new ArrayList<>();
+            librariesSolution = Arrays.asList(librarySolution, librarySolution2);
+            solutionToFile(librariesSolution, inputFile);
 
             /*
 
@@ -68,14 +73,23 @@ public class MachacasauriosApplication implements CommandLineRunner {
         LOG.info("APPLICATION FINISHED");
     }
 
-    private static void solutionToFile(List<Library> libraries, Book books, String fileName) throws IOException {
+    private static void solutionToFile(List<LibrarySolution> libraries, String fileName) throws IOException {
         BufferedWriter writer = new BufferedWriter(new FileWriter("src/main/resources/" + "solution_" + fileName));
 
         writer.write(String.valueOf(libraries.size()));
-        libraries.forEach(slide -> {
+        libraries.forEach(library -> {
             try {
                 writer.write("\n");
-//                writer.write((slide.toString()));
+                writer.write( library.id + " ");
+                writer.write(String.valueOf(library.getBooks().size()));
+                writer.write("\n");
+                library.getBooks().forEach(book -> {
+                    try {
+                        writer.write(book + " ");
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                });
             } catch (IOException e) {
                 e.printStackTrace();
             }
