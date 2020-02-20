@@ -21,8 +21,8 @@ public class MachacasauriosApplication implements CommandLineRunner {
 //                                                                "b_read_on.txt"
 //                                                                "c_incunabula.txt"
 //                                                                "d_tough_choices.txt"
-//                                                                "e_so_many_books.txt"
-                                                                "f_libraries_of_the_world.txt"
+                                                                "e_so_many_books.txt"
+//                                                                "f_libraries_of_the_world.txt"
                                                         );
 
     private static long numberOfBooks;
@@ -103,17 +103,19 @@ public class MachacasauriosApplication implements CommandLineRunner {
         writer.write(String.valueOf(libraries.size()));
         libraries.forEach(library -> {
             try {
-                writer.write("\n");
-                writer.write( library.id + " ");
-                writer.write(String.valueOf(library.getBooks().size()));
-                writer.write("\n");
-                library.getBooks().forEach(book -> {
-                    try {
-                        writer.write(book + " ");
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                });
+                if( library.books.size() > 0 ) {
+                    writer.write("\n");
+                    writer.write(library.id + " ");
+                    writer.write(String.valueOf(library.getBooks().size()));
+                    writer.write("\n");
+                    library.getBooks().forEach(book -> {
+                        try {
+                            writer.write(book + " ");
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    });
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }
