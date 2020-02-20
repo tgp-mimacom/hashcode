@@ -45,40 +45,17 @@ public class MachacasauriosApplication implements CommandLineRunner {
 
             readFromInputStream(inputStream1);
 
-
-
-            LibrarySolution librarySolution = new LibrarySolution(1, Arrays.asList(1L,2L,5L));
-            LibrarySolution librarySolution2 = new LibrarySolution(33, Arrays.asList(7L,8L,12L));
-            List<LibrarySolution> librariesSolution = new ArrayList<>();
-            librariesSolution = Arrays.asList(librarySolution, librarySolution2);
-            solutionToFile(librariesSolution, inputFile);
-
-            /*
-
-    public static Long calculateScore(long totalDays,
-                                      long daysToSignup,
-                                      ArrayList<Long> bookScores,
-                                      long numberOfBooksPerDay ) {
-             */
-
-
             for ( Library library : libraries ) {
                 Long score = library.calculateScore(scanningDays,
                                                     library.signupDays,
                                                     library.books,
                                                     library.numberOfBooksPerDay);
-
-                //LOG.info( "Score for library {} is {}", library.id, library.score );
             }
 
             Collections.sort(libraries);
             Collections.reverse(libraries);
-            for ( Library library : libraries ) {
-                LOG.info( "Score for library {} is {}", library.id, library.score );
-            }
 
             List<LibrarySolution> solution = new ArrayList<>();
-
             for ( Library library : libraries ) {
                 LibrarySolution libSol = new LibrarySolution();
                 libSol.id = library.id;
