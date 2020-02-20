@@ -57,13 +57,21 @@ public class MachacasauriosApplication implements CommandLineRunner {
             Collections.sort(libraries);
             Collections.reverse(libraries);
 
+            List<Long> usedBooks = new ArrayList<>();
+
             List<LibrarySolution> solution = new ArrayList<>();
             for ( Library library : libraries ) {
                 LibrarySolution libSol = new LibrarySolution();
                 libSol.id = library.id;
                 List<Long> bookIds = new ArrayList<>();
-                for( Book b : library.books)
-                    bookIds.add(b.id);
+
+                for( Book b : library.books) {
+                    if(!usedBooks.contains(b.id)){
+                        bookIds.add(b.id);
+                        usedBooks.add(b.id);
+                    }
+
+                }
                 libSol.books = bookIds;
 
                 if( !solution.contains(libSol) )
