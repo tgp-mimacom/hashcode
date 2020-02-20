@@ -67,7 +67,7 @@ public class MachacasauriosApplication implements CommandLineRunner {
                                                     library.books,
                                                     library.numberOfBooksPerDay);
 
-                LOG.info( "Score for library {} is {}", library.id, library.score );
+                //LOG.info( "Score for library {} is {}", library.id, library.score );
             }
 
             Collections.sort(libraries);
@@ -75,6 +75,20 @@ public class MachacasauriosApplication implements CommandLineRunner {
             for ( Library library : libraries ) {
                 LOG.info( "Score for library {} is {}", library.id, library.score );
             }
+
+            List<LibrarySolution> solution = new ArrayList<>();
+
+            for ( Library library : libraries ) {
+                LibrarySolution libSol = new LibrarySolution();
+                libSol.id = library.id;
+                List<Long> bookIds = new ArrayList<>();
+                for( Book b : library.books)
+                    bookIds.add(b.id);
+                libSol.books = bookIds;
+                solution.add(libSol);
+            }
+
+            MachacasauriosApplication.solutionToFile(solution, "test.txt");
 
         }
         LOG.info("APPLICATION FINISHED");
