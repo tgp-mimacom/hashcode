@@ -30,11 +30,12 @@ public class Library implements Comparable<Library> {
 
         int it = 0;
         long scoreTotal = 0;
-        while( totalDaysToScan > 0 ) {
+        while( totalDaysToScan >= 0 ) {
             for( int i = 0; i < numberOfBooksPerDay; i++) {
-                if( it < bookScores.size())
+                if( it < bookScores.size()) {
                     scoreTotal += bookScores.get(it);
-                it++;
+                    it++;
+                }
             }
             totalDaysToScan--;
         }
