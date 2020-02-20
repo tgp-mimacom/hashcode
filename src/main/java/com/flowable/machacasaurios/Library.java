@@ -1,8 +1,10 @@
 package com.flowable.machacasaurios;
 
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
-public class Library {
+public class Library implements Comparable<Library> {
     long id;
 
     long signupDays;
@@ -10,6 +12,37 @@ public class Library {
     long numberOfBooksPerDay;
 
     long numberOfBooksInLibrary;
+
+    long score;
+
+    public Long calculateScore(long totalDays,
+                                      long daysToSignup,
+                                      List<Book> books,
+                                      long numberOfBooksPerDay ) {
+
+        long totalDaysToScan = totalDays - daysToSignup;
+
+        ArrayList<Long> bookScores = new ArrayList<>();
+        for( Book b : books ){
+            bookScores.add(b.score);
+        }
+        bookScores.sort(Comparator.reverseOrder());
+
+        int it = 0;
+        long scoreTotal = 0;
+        while( totalDaysToScan > 0 ) {
+            for( int i = 0; i < numberOfBooksPerDay; i++) {
+                if( it < bookScores.size())
+                    scoreTotal += bookScores.get(it);
+                it++;
+            }
+            totalDaysToScan--;
+        }
+
+        score = scoreTotal;
+
+        return scoreTotal;
+    }
 
     public Library(long id, long signupDays, long numberOfBooksPerDay, long numberOfBooksInLibrary) {
         this.id = id;
@@ -46,5 +79,11 @@ public class Library {
 
     public void setBooks(List<Book> books) {
         this.books = books;
+    }
+
+    @Override
+    public int compareTo(Library o) {
+        return this.score<o.score?-1:
+                this.score>o.score?1:0;
     }
 }

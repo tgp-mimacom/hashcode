@@ -3,6 +3,7 @@ package com.flowable.machacasaurios;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -56,12 +57,18 @@ public class MachacasauriosApplication implements CommandLineRunner {
 
 
             for ( Library library : libraries ) {
-                Long score = LibraryScoreCalculator.calculateScore( scanningDays,
-                                                                    library.signupDays,
-                                                                    library.books,
-                                                                    library.numberOfBooksPerDay);
+                Long score = library.calculateScore(scanningDays,
+                                                    library.signupDays,
+                                                    library.books,
+                                                    library.numberOfBooksPerDay);
 
-                LOG.info( "Score for library {} is {}", library.id, score );
+                LOG.info( "Score for library {} is {}", library.id, library.score );
+            }
+
+            Collections.sort(libraries);
+            Collections.reverse(libraries);
+            for ( Library library : libraries ) {
+                LOG.info( "Score for library {} is {}", library.id, library.score );
             }
 
         }
