@@ -8,6 +8,10 @@ public class Book {
 
     boolean scanned;
 
+    public Book(long id) {
+        this.id = id;
+    }
+
     public Book(long id, long score) {
         this.id = id;
         this.score = score;

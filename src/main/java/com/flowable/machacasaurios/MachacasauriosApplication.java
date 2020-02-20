@@ -15,27 +15,26 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.core.io.ClassPathResource;
 
-import ch.qos.logback.core.BasicStatusManager;
-
 @SpringBootApplication
 public class MachacasauriosApplication implements CommandLineRunner {
 
     public static List<String> inputFiles = Arrays.asList("a_example.txt"
             //        "b_lovely_landscapes.txt"
-
             //        "c_memorable_moments.txt"
             //        "d_pet_pictures.txt",
             //        "e_shiny_selfies.txt"
     );
 
-    private long scanningDays;
+    private static long numberOfBooks;
+    private static long numberOfLibraries ;
+    private static long scanningDays;
 
     private static List<Book> books = new ArrayList<>();
 
-    //    public static List<String> inputFiles = Arrays.asList("a_example.txt");
+    private static List<Library> libraries = new ArrayList<>();
 
     private static Logger LOG = LoggerFactory
-        .getLogger(MachacasauriosApplication.class);
+            .getLogger(MachacasauriosApplication.class);
 
     public static void main(String[] args) throws IOException {
         LOG.info("STARTING THE APPLICATION");
@@ -45,19 +44,7 @@ public class MachacasauriosApplication implements CommandLineRunner {
             InputStream inputStream1 = new ClassPathResource(inputFile).getInputStream();
 
             readFromInputStream(inputStream1);
-            //                        System.out.println("Number of photos: " + numberOfPhotos);
-            //            System.out.println("Photos:");
-            //            photos.forEach(photo -> System.out.println(photo.toString()));
-
-//            List<Slide> slides = First.simple(photos);
-            //        System.out.println("SOLUTION:");
-
 //            solutionToFile(slides, inputFile);
-            //        System.out.println(slides.size());
-            //        slides.forEach(slide -> System.out.println(slide.toString()));
-//            photos.clear();
-//            slides.clear();
-//            numberOfPhotos = 0;
         }
         LOG.info("APPLICATION FINISHED");
     }
@@ -77,6 +64,7 @@ public class MachacasauriosApplication implements CommandLineRunner {
 //        writer.close();
 //
 //    }
+
     private static void readFromInputStream(InputStream inputStream)
         throws IOException {
         StringBuilder resultStringBuilder = new StringBuilder();
@@ -85,11 +73,13 @@ public class MachacasauriosApplication implements CommandLineRunner {
             String line;
             int i = 0;
             while ((line = br.readLine()) != null) {
+                long libraryCounter = 0;
+                Library currentLibrary = null;
                 if (i == 0) {
                     String[] splited = line.split("\\s+");
-                    long numberOfBooks = Long.parseLong(splited[0]);
-                    long numberOfLibraries = Long.parseLong(splited[1]);
-                    long scanningDays = Long.parseLong(splited[2]);
+                    numberOfBooks = Long.parseLong(splited[0]);
+                    numberOfLibraries = Long.parseLong(splited[1]);
+                    scanningDays = Long.parseLong(splited[2]);
                 } else if (i == 1) {
                     String[] splited = line.split("\\s+");
                     for (String s : splited) {
@@ -101,26 +91,24 @@ public class MachacasauriosApplication implements CommandLineRunner {
                 } else {
                     if(i % 2 == 0) {
                         // Definicion de libreria
-                        LOG.info("linea par " + line);
+                        String[] splited = line.split("\\s+");
+                        long numberOfBooksInLibrary = Long.parseLong(splited[0]);
+                        long signupDays = Long.parseLong(splited[1]);
+                        long numberOfBooksPerDay = Long.parseLong(splited[2]);
+                        currentLibrary = new Library(libraryCounter, signupDays, numberOfBooksPerDay, numberOfBooksInLibrary);
+                        libraries.add(currentLibrary);
                     } else {
                         // Libros de la libreria
-
+                        List<Book> libraryBooks = new ArrayList<>();
+                        String[] splited = line.split("\\s+");
+                        for (String s : splited) {
+                            Book book = new Book(Long.valueOf(s));
+                            libraryBooks.add(book);
+                        }
+                        libraries.add(currentLibrary);
+                        libraryCounter++;
                     }
                 }
-
-                //                    numberOfPhotos = Long.parseLong(line);
-                //                } else {
-                //                    String[] splited = line.split("\\s+");
-                //                    String id = String.valueOf((i - 1));
-                //                    String numberOfTags = splited[1];
-                //                    String orientation = splited[0];
-                //                    List<String> tags = new ArrayList<>();
-                //
-                //                    for (int j = 2; j < splited.length; j++) {
-                //                        tags.add(splited[j]);
-                //                    }
-                //                    photos.add(new Photo(id, numberOfTags, orientation, tags));
-                //                }
                 i++;
 
             }

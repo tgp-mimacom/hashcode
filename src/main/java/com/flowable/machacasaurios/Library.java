@@ -3,17 +3,25 @@ package com.flowable.machacasaurios;
 import java.util.List;
 
 public class Library {
+    long id;
 
     long signupDays;
 
     long numberOfBooksPerDay;
 
-    List<Book> books;
+    long numberOfBooksInLibrary;
 
-    public Library(long signupDays, long numberOfBooksPerDay, List<Book> books) {
+    public Library(long id, long signupDays, long numberOfBooksPerDay, long numberOfBooksInLibrary) {
+        this.id = id;
         this.signupDays = signupDays;
         this.numberOfBooksPerDay = numberOfBooksPerDay;
-        this.books = books;
+        this.numberOfBooksInLibrary = numberOfBooksInLibrary;
+    }
+
+    List<Book> books;
+
+    public Library(long id) {
+        this.id = id;
     }
 
     public long getSignupDays() {
