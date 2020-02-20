@@ -45,6 +45,25 @@ public class MachacasauriosApplication implements CommandLineRunner {
 
             readFromInputStream(inputStream1);
 //            solutionToFile(slides, inputFile);
+
+            /*
+
+    public static Long calculateScore(long totalDays,
+                                      long daysToSignup,
+                                      ArrayList<Long> bookScores,
+                                      long numberOfBooksPerDay ) {
+             */
+
+
+            for ( Library library : libraries ) {
+                Long score = LibraryScoreCalculator.calculateScore( scanningDays,
+                                                                    library.signupDays,
+                                                                    library.books,
+                                                                    library.numberOfBooksPerDay);
+
+                LOG.info( "Score for library {} is {}", library.id, score );
+            }
+
         }
         LOG.info("APPLICATION FINISHED");
     }
