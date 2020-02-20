@@ -17,11 +17,12 @@ import org.springframework.core.io.ClassPathResource;
 public class MachacasauriosApplication implements CommandLineRunner {
 
     public static List<String> inputFiles = Arrays.asList(
-//            "a_example.txt",
-                    "b_read_on.txt"
-            //        "c_memorable_moments.txt"
-            //        "d_pet_pictures.txt",
-            //        "e_shiny_selfies.txt"
+                    "a_example.txt",
+                    "b_read_on.txt",
+                    //"c_incunabula.txt"
+                    "d_tough_choices.txt",
+                    "e_so_many_books.txt",
+                    "f_libraries_of_the_world.txt"
     );
 
     private static long numberOfBooks;
@@ -88,7 +89,7 @@ public class MachacasauriosApplication implements CommandLineRunner {
                 solution.add(libSol);
             }
 
-            MachacasauriosApplication.solutionToFile(solution, "test.txt");
+            MachacasauriosApplication.solutionToFile(solution, inputFile);
 
         }
         LOG.info("APPLICATION FINISHED");
