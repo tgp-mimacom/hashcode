@@ -28,14 +28,16 @@ public class Library implements Comparable<Library> {
         }
         bookScores.sort(Comparator.reverseOrder());
 
-        int it = 0;
         long scoreTotal = 0;
-        while( totalDaysToScan >= 0 ) {
+        int it = 0;
+        while( totalDaysToScan >= 0 && bookScores.size() > 0 ) {
             for( int i = 0; i < numberOfBooksPerDay; i++) {
-                if( it < bookScores.size()) {
+                if( it < bookScores.size() && it >= 0)
+                {
                     scoreTotal += bookScores.get(it);
-                    it++;
+                    //System.out.println(it);
                 }
+                it++;
             }
             totalDaysToScan--;
         }

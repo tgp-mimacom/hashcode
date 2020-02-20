@@ -17,13 +17,13 @@ import org.springframework.core.io.ClassPathResource;
 public class MachacasauriosApplication implements CommandLineRunner {
 
     public static List<String> inputFiles = Arrays.asList(
-            //       "a_example.txt",
-            //"b_read_on.txt",
-                    "c_incunabula.txt"
-            //      "d_tough_choices.txt",
-            //      "e_so_many_books.txt",
-            //      "f_libraries_of_the_world.txt"
-    );
+//                                                                "a_example.txt"
+//                                                                "b_read_on.txt"
+//                                                                "c_incunabula.txt"
+//                                                                "d_tough_choices.txt"
+//                                                                "e_so_many_books.txt"
+                                                                "f_libraries_of_the_world.txt"
+                                                        );
 
     private static long numberOfBooks;
     private static long numberOfLibraries ;
@@ -45,21 +45,23 @@ public class MachacasauriosApplication implements CommandLineRunner {
 
             readFromInputStream(inputStream1);
 
+            int libacum = 0;
             for ( Library library : libraries ) {
                 Long score = library.calculateScore(scanningDays,
                                                     library.signupDays,
                                                     library.books,
                                                     library.numberOfBooksPerDay);
 
-                //LOG.info("score {}", score);
+                LOG.info("libacum {} / {}", libacum, libraries.size());
+                libacum++;
             }
 
             Collections.sort(libraries);
             Collections.reverse(libraries);
 
             List<Long> usedBooks = new ArrayList<>();
-
             List<LibrarySolution> solution = new ArrayList<>();
+            int acum = 0;
             for ( Library library : libraries ) {
                 LibrarySolution libSol = new LibrarySolution();
                 libSol.id = library.id;
@@ -76,6 +78,9 @@ public class MachacasauriosApplication implements CommandLineRunner {
 
                 if( !solution.contains(libSol) )
                     solution.add(libSol);
+
+                LOG.info( "FILE {}; Library {} / {}", inputFile, acum, libraries.size());
+                acum++;
             }
 
             MachacasauriosApplication.solutionToFile(solution, inputFile);
@@ -112,9 +117,11 @@ public class MachacasauriosApplication implements CommandLineRunner {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+            LOG.info("write");
         });
         writer.close();
 
+        LOG.info("END WRITING");
     }
 
     private static void readFromInputStream(InputStream inputStream)
