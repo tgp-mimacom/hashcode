@@ -15,8 +15,9 @@ import org.springframework.core.io.ClassPathResource;
 @SpringBootApplication
 public class MachacasauriosApplication implements CommandLineRunner {
 
-    public static List<String> inputFiles = Arrays.asList("a_example.txt"
-            //        "b_lovely_landscapes.txt"
+    public static List<String> inputFiles = Arrays.asList(
+//            "a_example.txt",
+                    "b_read_on.txt"
             //        "c_memorable_moments.txt"
             //        "d_pet_pictures.txt",
             //        "e_shiny_selfies.txt"
@@ -107,6 +108,9 @@ public class MachacasauriosApplication implements CommandLineRunner {
                         bookId++;
                     }
                 } else {
+                    if(line.equals("")) {
+                        continue;
+                    }
                     if(i % 2 == 0) {
                         // Definicion de libreria
                         String[] splited = line.split("\\s+");
