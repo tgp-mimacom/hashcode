@@ -12,9 +12,6 @@ import java.util.List;
 @NoArgsConstructor
 public class LibrarySolution {
     long id;
-
-    long numberOfBooksPerDay;
-
     List<Long> books;
 
 
