@@ -51,7 +51,7 @@ public class MachacasauriosApplication implements CommandLineRunner {
                                                     library.books,
                                                     library.numberOfBooksPerDay);
 
-                LOG.info("score {}", score);
+                //LOG.info("score {}", score);
             }
 
             Collections.sort(libraries);
