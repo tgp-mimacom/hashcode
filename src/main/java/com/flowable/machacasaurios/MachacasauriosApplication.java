@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,8 +22,8 @@ public class MachacasauriosApplication implements CommandLineRunner {
 //                                                                "b_read_on.txt"
 //                                                                "c_incunabula.txt"
 //                                                                "d_tough_choices.txt"
-                                                                "e_so_many_books.txt"
-//                                                                "f_libraries_of_the_world.txt"
+//                                                                "e_so_many_books.txt"
+                                                                "f_libraries_of_the_world.txt"
                                                         );
 
     private static long numberOfBooks;
@@ -100,10 +101,12 @@ public class MachacasauriosApplication implements CommandLineRunner {
     private static void solutionToFile(List<LibrarySolution> libraries, String fileName) throws IOException {
         BufferedWriter writer = new BufferedWriter(new FileWriter("src/main/resources/" + "solution_" + fileName));
 
+        AtomicInteger acum = new AtomicInteger();
         writer.write(String.valueOf(libraries.size()));
         libraries.forEach(library -> {
             try {
                 if( library.books.size() > 0 ) {
+                    acum.getAndIncrement();
                     writer.write("\n");
                     writer.write(library.id + " ");
                     writer.write(String.valueOf(library.getBooks().size()));
@@ -119,11 +122,10 @@ public class MachacasauriosApplication implements CommandLineRunner {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            LOG.info("write");
         });
         writer.close();
 
-        LOG.info("END WRITING");
+        LOG.info("END WRITING = {}", acum.get());
     }
 
     private static void readFromInputStream(InputStream inputStream)
