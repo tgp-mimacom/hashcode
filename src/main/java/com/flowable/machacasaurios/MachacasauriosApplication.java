@@ -1,9 +1,6 @@
 package com.flowable.machacasaurios;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -44,26 +41,28 @@ public class MachacasauriosApplication implements CommandLineRunner {
             InputStream inputStream1 = new ClassPathResource(inputFile).getInputStream();
 
             readFromInputStream(inputStream1);
+
+
 //            solutionToFile(slides, inputFile);
         }
         LOG.info("APPLICATION FINISHED");
     }
 
-//    private static void solutionToFile(List<Slide> slides, String fileName) throws IOException {
-//        BufferedWriter writer = new BufferedWriter(new FileWriter("src/main/resources/" + "solution_" + fileName));
-//
-//        writer.write(String.valueOf(slides.size()));
-//        slides.forEach(slide -> {
-//            try {
-//                writer.write("\n");
-////                writer.write((slide.toString()));
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//        });
-//        writer.close();
-//
-//    }
+    private static void solutionToFile(List<Library> libraries, Book books, String fileName) throws IOException {
+        BufferedWriter writer = new BufferedWriter(new FileWriter("src/main/resources/" + "solution_" + fileName));
+
+        writer.write(String.valueOf(libraries.size()));
+        libraries.forEach(slide -> {
+            try {
+                writer.write("\n");
+//                writer.write((slide.toString()));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+        writer.close();
+
+    }
 
     private static void readFromInputStream(InputStream inputStream)
         throws IOException {
