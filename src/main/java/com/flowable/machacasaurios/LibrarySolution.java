@@ -13,6 +13,8 @@ import java.util.List;
 public class LibrarySolution {
     long id;
 
+    long day;
+
     long numberOfBooks;
 
     long numberOfBooksPerDay;
