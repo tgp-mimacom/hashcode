@@ -102,7 +102,8 @@ public class MachacasauriosApplication implements CommandLineRunner {
                         List<Book> libraryBooks = new ArrayList<>();
                         String[] splited = line.split("\\s+");
                         for (String s : splited) {
-                            Book book = new Book(Long.valueOf(s));
+
+                            Book book = books.get((int) Long.parseLong(s));
                             libraryBooks.add(book);
                         }
                         currentLibrary.setBooks(libraryBooks);
