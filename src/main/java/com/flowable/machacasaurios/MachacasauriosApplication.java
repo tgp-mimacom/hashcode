@@ -72,9 +72,9 @@ public class MachacasauriosApplication implements CommandLineRunner {
                      = new BufferedReader(new InputStreamReader(inputStream))) {
             String line;
             int i = 0;
+            Library currentLibrary = null;
             while ((line = br.readLine()) != null) {
                 long libraryCounter = 0;
-                Library currentLibrary = null;
                 if (i == 0) {
                     String[] splited = line.split("\\s+");
                     numberOfBooks = Long.parseLong(splited[0]);
@@ -82,9 +82,9 @@ public class MachacasauriosApplication implements CommandLineRunner {
                     scanningDays = Long.parseLong(splited[2]);
                 } else if (i == 1) {
                     String[] splited = line.split("\\s+");
+                    long bookId = 0;
                     for (String s : splited) {
-                        long bookId = 0;
-                        Book book = new Book(Long.parseLong(s), bookId);
+                        Book book = new Book(bookId, Long.parseLong(s));
                         books.add(book);
                         bookId++;
                     }
@@ -105,7 +105,7 @@ public class MachacasauriosApplication implements CommandLineRunner {
                             Book book = new Book(Long.valueOf(s));
                             libraryBooks.add(book);
                         }
-                        libraries.add(currentLibrary);
+                        currentLibrary.setBooks(libraryBooks);
                         libraryCounter++;
                     }
                 }
