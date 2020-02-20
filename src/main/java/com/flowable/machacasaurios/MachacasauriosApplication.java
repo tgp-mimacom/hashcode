@@ -19,7 +19,7 @@ public class MachacasauriosApplication implements CommandLineRunner {
     public static List<String> inputFiles = Arrays.asList(
                     "a_example.txt",
                     "b_read_on.txt",
-                    //"c_incunabula.txt"
+                    //"c_incunabula.txt",
                     "d_tough_choices.txt",
                     "e_so_many_books.txt",
                     "f_libraries_of_the_world.txt"
@@ -50,6 +50,8 @@ public class MachacasauriosApplication implements CommandLineRunner {
                                                     library.signupDays,
                                                     library.books,
                                                     library.numberOfBooksPerDay);
+
+                LOG.info("score {}", score);
             }
 
             Collections.sort(libraries);
@@ -63,10 +65,20 @@ public class MachacasauriosApplication implements CommandLineRunner {
                 for( Book b : library.books)
                     bookIds.add(b.id);
                 libSol.books = bookIds;
-                solution.add(libSol);
+
+                if( !solution.contains(libSol) )
+                    solution.add(libSol);
             }
 
             MachacasauriosApplication.solutionToFile(solution, inputFile);
+
+            numberOfBooks = 0;
+            numberOfLibraries = 0;
+            scanningDays = 0;
+
+            books = new ArrayList<>();
+
+            libraries = new ArrayList<>();
 
         }
         LOG.info("APPLICATION FINISHED");
